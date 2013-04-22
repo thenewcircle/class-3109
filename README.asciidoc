@@ -1,0 +1,30 @@
+class-3109
+==========
+
+Advanced Android at Building C
+
+== Homework
+
+* http://mrkn.co/f/595[Watch Eclipse Video]
+
+== Eclipse Shortcuts
+
+Ctrl-S::
+Save file. Causes to build the entire project if Project->Build Automatically is on.
+
+Ctrl-Space::
+Auto-complete (context sensitive)
+
+Ctrl-Shift-O::
+Organize imports
+
+Ctrl-Shift-F::
+Reformat code
+
+Source->Organize Imports...
+Figures out what import statements to add
+
+Source->Override/Implement Methods...
+Offers a list of possible methods to override/implement
+
+Or, watch http://mrkn.co/f/595[Eclipse Video]
