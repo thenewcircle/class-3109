@@ -11,7 +11,17 @@ long fib(long n) {
 
 /* JNI Wrapper */
 static jlong fibN(JNIEnv *env, jclass clazz, jlong n) {
-	return fib(n);
+	if(n<0) {
+		// Throw an exception
+		jclass exception_class = env->FindClass("java/lang/IllegalArgumentException");
+		env->ThrowNew(exception_class, "N cannot be negative!");
+	}
+
+	// Did we thow an exception
+	if( !env->ExceptionCheck() )
+		return fib(n);
+	else
+		return -1;
 }
 
 /* Mapping table */
