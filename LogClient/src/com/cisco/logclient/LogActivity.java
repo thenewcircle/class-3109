@@ -16,6 +16,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.cisco.logcommon.LogManager;
+import com.cisco.logcommon.LogMessage;
 
 public class LogActivity extends Activity implements OnClickListener {
 	private static final String TAG = "LogActivity";
@@ -78,7 +79,7 @@ public class LogActivity extends Activity implements OnClickListener {
 		try {
 			switch (this.type.getCheckedRadioButtonId()) {
 			case R.id.type_log_j:
-				logManager.logJ(priority, tag, msg);
+				logManager.log( new LogMessage( -1, priority, tag, msg ) );
 				break;
 			case R.id.type_log_n:
 				logManager.logN(priority, tag, msg);
