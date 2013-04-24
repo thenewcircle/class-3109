@@ -63,4 +63,14 @@ public class FibManager {
 		}
 	}
 
+	public long fib(FibRequest request) {
+		if(fibService==null) return -1;
+		try {
+			return fibService.fib(request);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+
 }
