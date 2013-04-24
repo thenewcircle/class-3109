@@ -2,6 +2,7 @@ package com.cisco.logclient;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -15,6 +16,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.cisco.logcommon.LogContract;
 import com.cisco.logcommon.LogManager;
 import com.cisco.logcommon.LogMessage;
 
@@ -75,14 +77,23 @@ public class LogActivity extends Activity implements OnClickListener {
 		}
 	}
 
-	private void log(int priority, String tag, String msg) {
+	private ContentValues values = new ContentValues();
+	private void log(int priority, String tag, String text) {
 		try {
+			// Log to the LogProvider as well
+			values.clear();
+			values.put( LogContract.Columns.PRIORITY, priority);
+			values.put( LogContract.Columns.TAG, tag);
+			values.put( LogContract.Columns.TEXT, text);
+			getContentResolver().insert( LogContract.CONTENT_URI, values);
+			
+			
 			switch (this.type.getCheckedRadioButtonId()) {
 			case R.id.type_log_j:
-				logManager.log( new LogMessage( -1, priority, tag, msg ) );
+				logManager.log( new LogMessage( -1, priority, tag, text ) );
 				break;
 			case R.id.type_log_n:
-				logManager.logN(priority, tag, msg);
+				logManager.logN(priority, tag, text);
 				break;
 			default:
 				return;

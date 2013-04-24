@@ -5,6 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.cisco.logcommon.LogContract;
+
 public class DbHelper extends SQLiteOpenHelper {
 
 	public DbHelper(Context context) {
@@ -15,7 +17,7 @@ public class DbHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		String sql = String.format(
-				"create table %s ( %s int primary key autoincrement, "
+				"create table %s ( %s integer primary key autoincrement, "
 						+ "%s int, %s text, %s text)", LogContract.TABLE,
 				LogContract.Columns.ID, LogContract.Columns.PRIORITY,
 				LogContract.Columns.TAG, LogContract.Columns.TEXT);
