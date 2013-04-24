@@ -3,6 +3,7 @@ package com.cisco.fibservice;
 import android.os.RemoteException;
 
 import com.cisco.fibcommon.FibRequest;
+import com.cisco.fibcommon.IFibListener;
 import com.cisco.fibcommon.IFibService;
 
 public class IFibServiceImpl extends IFibService.Stub {
@@ -25,6 +26,13 @@ public class IFibServiceImpl extends IFibService.Stub {
 			return fibN(request.getN());
 		else
 			return -1;
+	}
+
+	@Override
+	public void asyncFib(FibRequest request, IFibListener listener)
+			throws RemoteException {
+		long n = fib(request);
+		listener.onResponse(n);
 	}
 
 }

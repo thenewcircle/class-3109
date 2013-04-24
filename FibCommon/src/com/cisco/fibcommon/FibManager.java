@@ -73,4 +73,13 @@ public class FibManager {
 		}
 	}
 
+	public void asyncFib(FibRequest request, IFibListener listener) {
+		if(fibService==null) return;
+		try {
+			fibService.asyncFib(request, listener);
+		} catch (RemoteException e) {
+			e.printStackTrace();
+			return;
+		}
+	}
 }
