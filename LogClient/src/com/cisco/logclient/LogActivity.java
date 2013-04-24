@@ -107,4 +107,10 @@ public class LogActivity extends Activity implements OnClickListener {
 			Log.wtf(TAG, "Failed to log the message", e);
 		}
 	}
+	
+	// Bound to the purge button
+	public void onPurge(View v) {
+		int rows = getContentResolver().delete( LogContract.CONTENT_URI, null, null);
+		Toast.makeText(this, "Delete records: "+rows, Toast.LENGTH_LONG).show();
+	}
 }
