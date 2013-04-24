@@ -6,6 +6,7 @@ import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
@@ -111,8 +112,29 @@ public class LogProvider extends ContentProvider {
 	@Override
 	public Cursor query(Uri uri, String[] projection, String selection,
 			String[] selectionArgs, String sortOrder) {
-		// TODO Auto-generated method stub
-		return null;
+
+		SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+		builder.setTables(LogContract.TABLE);
+
+		switch (MATCHER.match(uri)) {
+		case MESSAGE_DIR:
+			break;
+		case MESSAGE_ITEM:
+			builder.appendWhere(LogContract.Columns.ID + "="
+					+ uri.getLastPathSegment());
+			break;
+		default:
+			throw new IllegalArgumentException("Invalid URI: " + uri);
+		}
+
+		SQLiteDatabase db = dbHelper.getReadableDatabase();
+		Cursor cursor = builder.query(db, projection, selection, selectionArgs,
+				null, null, sortOrder);
+
+		Log.d(TAG,
+				"query with coursor length: "
+						+ ((cursor != null) ? cursor.getCount() : "null"));
+		return cursor;
 	}
 
 }
