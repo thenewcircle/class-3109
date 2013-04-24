@@ -13,9 +13,9 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         
-        <service android:name="com.cisco.fibclientlocalservice.FibService">
+        <service android:name="com.cisco.logservice.LogService">
             <intent-filter >
-                <action android:name="com.cisco.fibservice.action.FIB_SERVICE"/>
+                <action android:name="com.cisco.logservice.action.LOG_SERVICE"/>
             </intent-filter>
         </service>
     </application>

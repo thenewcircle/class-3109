@@ -1,5 +1,6 @@
 package com.cisco.logcommon;
 
 interface ILogService {
-	void log(int priority, String tag, String text);
+	void logN(int priority, String tag, String text);
+	void logJ(int priority, String tag, String text);
 }
