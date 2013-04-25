@@ -35,8 +35,14 @@ public class LogProvider extends ContentProvider {
 
 	@Override
 	public String getType(Uri uri) {
-		// TODO Auto-generated method stub
-		return null;
+		switch (MATCHER.match(uri)) {
+		case MESSAGE_DIR:
+			return LogContract.MIME_TYPE_DIR;
+		case MESSAGE_ITEM:
+			return LogContract.MIME_TYPE_ITEM;
+		default:
+			throw new IllegalArgumentException("Invalid URI: " + uri);
+		}
 	}
 
 	@Override

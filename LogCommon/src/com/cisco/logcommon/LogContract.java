@@ -13,6 +13,8 @@ public final class LogContract {
 	public static final String AUTHORITY = "com.cisco.provider.log";
 	public static final String PATH = TABLE;
 	public static final Uri CONTENT_URI = Uri.parse("content://"+AUTHORITY+"/"+PATH);
+	public static final String MIME_TYPE_DIR = "vnd.android.cursor.dir/vnd.cisco.log.message";
+	public static final String MIME_TYPE_ITEM = "vnd.android.cursor.item/vnd.cisco.log.message";
 	
 	public class Columns {
 		public static final String ID = BaseColumns._ID;
