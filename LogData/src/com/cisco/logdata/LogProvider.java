@@ -59,12 +59,11 @@ public class LogProvider extends ContentProvider {
 		Uri ret = (id == -1) ? null : ContentUris.withAppendedId(uri, id);
 
 		Log.d(TAG, "inserted uri: " + ret);
+
+		// Notify of change
+		getContext().getContentResolver().notifyChange(ret, null);
 		return ret;
 	}
-
-	// update messages set message='updated!' where tag = 'Cisco';
-	// selection: "where tag = ?"
-	// args: Cisco
 
 	@Override
 	public int update(Uri uri, ContentValues values, String selection,
@@ -88,6 +87,8 @@ public class LogProvider extends ContentProvider {
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		int rows = db.update(LogContract.TABLE, values, where, selectionArgs);
 
+		// Notify of change
+		getContext().getContentResolver().notifyChange(uri, null);
 		return rows;
 	}
 
@@ -112,6 +113,8 @@ public class LogProvider extends ContentProvider {
 		SQLiteDatabase db = dbHelper.getWritableDatabase();
 		int rows = db.delete(LogContract.TABLE, where, selectionArgs);
 
+		// Notify of change
+		getContext().getContentResolver().notifyChange(uri, null);
 		return rows;
 	}
 
@@ -140,6 +143,8 @@ public class LogProvider extends ContentProvider {
 		Log.d(TAG,
 				"query with coursor length: "
 						+ ((cursor != null) ? cursor.getCount() : "null"));
+
+		cursor.setNotificationUri(getContext().getContentResolver(), uri);
 		return cursor;
 	}
 
