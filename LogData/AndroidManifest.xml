@@ -7,13 +7,25 @@
         android:minSdkVersion="11"
         android:targetSdkVersion="16" />
 
+    <permission
+        android:name="com.cisco.log.permission.READ_DATA"
+        android:protectionLevel="signature" >
+    </permission>
+    <permission
+        android:name="com.cisco.log.permission.WRITE_DATA"
+        android:protectionLevel="signature" >
+    </permission>
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <provider android:name="com.cisco.logdata.LogProvider" 
-            android:authorities="com.cisco.provider.log">
+        <provider
+            android:name="com.cisco.logdata.LogProvider"
+            android:authorities="com.cisco.provider.log"
+            android:readPermission="com.cisco.log.permission.READ_DATA"
+            android:writePermission="com.cisco.permission.WRITE_DATA" >
         </provider>
     </application>
 

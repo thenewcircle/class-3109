@@ -7,18 +7,22 @@
         android:minSdkVersion="11"
         android:targetSdkVersion="16" />
 
+    <permission
+        android:name="com.cisco.permission.ACCESS_FIB_SERVICE"
+        android:protectionLevel="signature" >
+    </permission>
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        
-        <service android:name="com.cisco.fibservice.FibService">
-            <intent-filter >
-                <action android:name="com.cisco.fibservice.action.FIB_SERVICE"/>
+        <service android:name="com.cisco.fibservice.FibService" 
+            android:permission="com.cisco.permission.ACCESS_FIB_SERVICE">
+            <intent-filter>
+                <action android:name="com.cisco.fibservice.action.FIB_SERVICE" />
             </intent-filter>
         </service>
-        
     </application>
 
 </manifest>
