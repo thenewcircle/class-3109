@@ -17,4 +17,13 @@
         android:layout_alignParentTop="true"
         tools:layout="@layout/fragment_location" />
 
+    <fragment
+        android:id="@+id/fragment2"
+        android:name="com.marakana.android.tricoder.SensorFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/fragment1"
+        android:layout_below="@+id/fragment1"
+        tools:layout="@layout/fragment_sensor" />
+
 </RelativeLayout>
