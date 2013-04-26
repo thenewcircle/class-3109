@@ -7,6 +7,8 @@ import android.app.Fragment;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.GpsSatellite;
+import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -20,7 +22,7 @@ public class LocationFragment extends Fragment {
 	private static final String PROVIDER = LocationManager.GPS_PROVIDER;
 	private static final int MIN_TIME = 30000; // 30 seconds
 	private static final int MIN_DISTANCE = 10; // 10 meters
-	private static TextView textLat, textLong, textAlt, textAddress;
+	private static TextView textLat, textLong, textAlt, textAddress, textSatellites;
 	private LocationManager locationManager;
 	private static Geocoder geocoder;
 
@@ -32,6 +34,7 @@ public class LocationFragment extends Fragment {
 		textLong = (TextView) view.findViewById(R.id.text_long);
 		textAlt = (TextView) view.findViewById(R.id.text_alt);
 		textAddress = (TextView) view.findViewById(R.id.text_address);
+		textSatellites = (TextView) view.findViewById(R.id.text_satellites);
 
 		return view;
 	}
@@ -44,6 +47,8 @@ public class LocationFragment extends Fragment {
 		Location location = locationManager.getLastKnownLocation(PROVIDER);
 		geocoder = new Geocoder(getActivity());
 
+		locationManager.addGpsStatusListener(GPS_STATUS_LISTENER);
+		
 		updateView(location);
 	}
 
@@ -109,4 +114,21 @@ public class LocationFragment extends Fragment {
 			}
 		}
 	}
+	
+	private final GpsStatus.Listener GPS_STATUS_LISTENER = new GpsStatus.Listener() {
+		
+		@Override
+		public void onGpsStatusChanged(int event) {
+			GpsStatus status = locationManager.getGpsStatus(null);
+			if(status!=null) {
+				int satellites = 0;
+				for(GpsSatellite sat: status.getSatellites()) {
+					satellites++;
+				}
+				textSatellites.setText(satellites+" satellites");
+			} else {
+				textSatellites.setText("");
+			}
+		}
+	};
 }

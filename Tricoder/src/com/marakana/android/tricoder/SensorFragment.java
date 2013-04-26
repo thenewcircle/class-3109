@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 public class SensorFragment extends Fragment {
-	private static TextView textGravity, textMagnetic;
+	private static TextView textGravity, textMagnetic, textSensors;
 	private SensorManager sensorManager;
 	private Sensor sensorGravity, sensorMagnetic;
 
@@ -25,7 +25,8 @@ public class SensorFragment extends Fragment {
 		View view = inflater.inflate(R.layout.fragment_sensor, null);
 		textMagnetic = (TextView) view.findViewById(R.id.text_magnetic);
 		textGravity = (TextView) view.findViewById(R.id.text_gravity);
-
+		textSensors = (TextView) view.findViewById(R.id.text_sensors);
+		
 		return view;
 	}
 
@@ -35,12 +36,8 @@ public class SensorFragment extends Fragment {
 		sensorManager = (SensorManager) getActivity().getSystemService(
 				Context.SENSOR_SERVICE);
 
-		// List available sensors
-		// List<Sensor> availableSensors = sensorManager
-		// .getSensorList(Sensor.TYPE_ALL);
-		// for (Sensor current : availableSensors) {
-		// textSensors.append("\n"+current.getName());
-		// }
+		int sensors = sensorManager.getSensorList(Sensor.TYPE_ALL).size();
+		textSensors.setText(sensors+" sensors");
 
 		sensorGravity = sensorManager.getDefaultSensor(Sensor.TYPE_GRAVITY);
 		sensorMagnetic = sensorManager
