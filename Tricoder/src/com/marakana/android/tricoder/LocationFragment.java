@@ -91,9 +91,9 @@ public class LocationFragment extends Fragment {
 			textLong.setText("");
 			textAlt.setText("");
 		} else {
-			textLat.setText(String.format("%.3f", location.getLatitude()));
-			textLong.setText(String.format("%.3f", location.getLongitude()));
-			textAlt.setText(String.format("%.0f", location.getAltitude()));
+			textLat.setText(String.format("Lat:   %.3f", location.getLatitude()));
+			textLong.setText(String.format("Long: %.3f", location.getLongitude()));
+			textAlt.setText(String.format("Alt: %.0fm", location.getAltitude()));
 
 			// Geocode the location to address
 			textAddress.setText("");
