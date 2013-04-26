@@ -4,6 +4,9 @@ import junit.framework.Assert;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.test.ActivityInstrumentationTestCase2;
+import android.test.TouchUtils;
+import android.test.UiThreadTest;
+import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -27,7 +30,7 @@ public class MainActivityTest extends
 	protected void setUp() throws Exception {
 		super.setUp();
 		this.activity = (MainActivity) getActivity();
-		this.input = (EditText) activity.findViewById( R.id.input);
+		this.input = (EditText) activity.findViewById(R.id.input);
 		this.buttonGo = (Button) activity.findViewById(R.id.buttonGo);
 		this.listView = (ListView) activity.findViewById(R.id.list);
 	}
@@ -38,11 +41,11 @@ public class MainActivityTest extends
 		Assert.assertNotNull(input);
 		Assert.assertNotNull(listView);
 	}
-	
+
 	public void testAddingLogMessages() throws Exception {
 		// How many do we have to begin with?
 		int countPre = listView.getCount();
-		
+
 		// Log three new messages
 		ContentValues values = new ContentValues();
 		values.put(LogContract.Columns.TAG, "TESTER");
@@ -61,12 +64,29 @@ public class MainActivityTest extends
 		// Restart the activity
 		this.activity.finish();
 		this.setUp();
-		
+
 		// Assert we have three more than we had before
 		int countPost = listView.getCount();
-		Assert.assertEquals(countPre+3, countPost);
+		Assert.assertEquals(countPre + 3, countPost);
 	}
-	
+
+	@UiThreadTest
+	public void testSearchUIThread() {
+		input.setText("TESTER");
+		activity.onSearch(buttonGo);
+		Assert.assertTrue(true);
+	}
+
+	// Non-UI thread
+	public void testSearch() {
+		TouchUtils.tapView(this, input);
+		super.getInstrumentation().waitForIdleSync();
+		super.sendKeys(KeyEvent.KEYCODE_T, KeyEvent.KEYCODE_E,
+				KeyEvent.KEYCODE_S, KeyEvent.KEYCODE_T); // Types 'TEST'
+		TouchUtils.clickView(this, this.buttonGo);
+		Assert.assertTrue(true);
+	}
+
 	@Override
 	protected void tearDown() throws Exception {
 		// TODO Auto-generated method stub
