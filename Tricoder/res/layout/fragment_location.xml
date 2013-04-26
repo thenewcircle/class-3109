@@ -45,4 +45,13 @@
         android:text="321&apos;"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
+    <TextView
+        android:id="@+id/text_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/text_long"
+        android:layout_below="@+id/text_long"
+        android:text="Address"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
 </RelativeLayout>
