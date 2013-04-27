@@ -72,15 +72,18 @@ public class RadioFragment extends Fragment {
 	}
 
 	private static final int MAX_RESULTS = 3;
-	
+
 	private void updateConfiguredNetworks(
 			List<WifiConfiguration> configuredNetworks) {
+		if (configuredNetworks == null || configuredNetworks.size() == 0)
+			return;
+		
 		textConfiguredNetworks.setText("Configured Networks ("
 				+ configuredNetworks.size() + "): ");
-		
-		int count=0;
+
+		int count = 0;
 		for (WifiConfiguration network : configuredNetworks) {
-			if(++count>MAX_RESULTS) {
+			if (++count > MAX_RESULTS) {
 				textConfiguredNetworks.append("\n...");
 				break;
 			}
@@ -95,9 +98,9 @@ public class RadioFragment extends Fragment {
 			textScanResults.setText("Scan Results (" + scanResults.size()
 					+ "): ");
 
-			int count=0;
+			int count = 0;
 			for (ScanResult result : scanResults) {
-				if(++count>MAX_RESULTS) {
+				if (++count > MAX_RESULTS) {
 					textScanResults.append("\n...");
 					break;
 				}
